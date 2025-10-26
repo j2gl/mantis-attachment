@@ -1,5 +1,6 @@
 package com.j2gl.mantisbt.attachments.domain
 
+import com.j2gl.mantisbt.attachments.repository.MantisBugFileRepository
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
@@ -9,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @Transactional
-class MantisBugFileRepositoryIntegrationTest @Autowired constructor(
+class MantisBugFileRepositoryIT @Autowired constructor(
     val repository: MantisBugFileRepository
 ) {
     @Test
