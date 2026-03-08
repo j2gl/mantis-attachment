@@ -44,3 +44,4 @@ out/
 
 ### Project Specific ###
 temp/
+db-scripts/.env
