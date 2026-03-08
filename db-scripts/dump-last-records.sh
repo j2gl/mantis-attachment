@@ -13,13 +13,19 @@ fi
 
 : "${DATABASE_NAME:?DATABASE_NAME is not set in .env}"
 
+TODAY=$(date +%Y-%m-%d)
+DIRECTORY=../temp
+DUMP_FULL="$DIRECTORY/${TODAY}_mantis-db_no-bug-file-table.sql"
+NUMBER_OF_FILES=100
+DUMP_LAST_FILES="$DIRECTORY/${TODAY}_mantis-db_partial_bug-file-table.sql"
+
 # Dump the full database, excluding the large mantis_bug_file_table
 mysqldump --login-path=jjmysqldb2 \
   --single-transaction \
   --hex-blob \
   --ignore-table="$DATABASE_NAME.mantis_bug_file_table" \
   "$DATABASE_NAME" \
-  > "dump_full_except_bug_file.sql"
+  > "$DUMP_FULL"
 
 # Dump only the last 100 rows of mantis_bug_file_table
 mysqldump --login-path=jjmysqldb2 \
@@ -27,5 +33,5 @@ mysqldump --login-path=jjmysqldb2 \
   --hex-blob \
   --complete-insert \
   "$DATABASE_NAME" "mantis_bug_file_table" \
-  --where "1 ORDER BY id DESC LIMIT 100" \
-  > "dump_last_100.sql"
+  --where "1 ORDER BY id DESC LIMIT $NUMBER_OF_FILES" \
+  > "$DUMP_LAST_FILES"

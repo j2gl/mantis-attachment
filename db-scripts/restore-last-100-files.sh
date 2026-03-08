@@ -12,5 +12,6 @@ fi
 
 : "${DATABASE_NAME:?DATABASE_NAME is not set in .env}"
 
-mysql --login-path=master-db "$DATABASE_NAME" < dump_last_100.sql
+mysql --login-path=master-db "$DATABASE_NAME" < ../temp/mantis-db_no-bug-file-table.sql
+mysql --login-path=master-db "$DATABASE_NAME" < ../temp/mantis-db_partial_bug-file-table.sql
 
